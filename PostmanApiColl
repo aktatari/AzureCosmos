@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "a53b01c3-061d-47d3-a4c9-46d5657db137",
+		"name": "AzureCosmos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post Document - Local",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"contentType": "multipart/form-data",
+							"type": "file",
+							"src": "/C:/Users/aktat/Downloads/test text file.txt"
+						},
+						{
+							"key": "category",
+							"value": "File",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "text file",
+							"contentType": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "First File ",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/PostFIle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"PostFIle"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "test_name",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Document - Return errors - Update the data but the not the file",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"contentType": "multipart/form-data",
+							"type": "file",
+							"src": "/C:/Users/aktat/Downloads/test text file.txt"
+						},
+						{
+							"key": "category",
+							"value": "File",
+							"contentType": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "text file",
+							"contentType": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "First File ",
+							"contentType": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://azurecosmos20220424215519.azurewebsites.net/api/PostFile",
+					"protocol": "https",
+					"host": [
+						"azurecosmos20220424215519",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"PostFile"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "test_name",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document - Local",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:7071/api/GetFile?id=a75e9996-4609-46ae-babe-4749ec2cc6a7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"GetFile"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "a75e9996-4609-46ae-babe-4749ec2cc6a7"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": null,
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://azurecosmos20220424215519.azurewebsites.net/api/GetFile?id=a68ec1c2-4393-4ad5-be64-65af0ace4c4c",
+					"protocol": "https",
+					"host": [
+						"azurecosmos20220424215519",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"GetFile"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "a68ec1c2-4393-4ad5-be64-65af0ace4c4c"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
