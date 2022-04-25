@@ -41,7 +41,17 @@ namespace AzureCosmos
             response.id = data["id"];
             response.message = "File has been retreived";
             response.content = data.ToString();
+            string filePath = data["file"];
+            string fileName = data["name"];
+            log.LogInformation(filePath);
+            Azure.Storage.Blobs.BlobClient blob = new Azure.Storage.Blobs.BlobClient(
+                connectionString: Environment.GetEnvironmentVariable("bolbConnectionString"),
+                blobContainerName: "filescontainter",
+                blobName: fileName
 
+                ); ;
+
+            blob.DownloadContentAsync().Wait();
             return new OkObjectResult(data);
         }
     }

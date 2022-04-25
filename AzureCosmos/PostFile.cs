@@ -36,9 +36,30 @@ namespace AzureCosmos
             string description = requestBody["description"];
             string category = requestBody["category"];
             string newId = System.Guid.NewGuid().ToString();
-            var file = req.Form.Files["file"];  
+            var file = req.Form.Files["file"];
+
             
-            if (!string.IsNullOrEmpty(name))
+
+            Azure.Storage.Blobs.BlobClient blob = new Azure.Storage.Blobs.BlobClient(
+                connectionString: Environment.GetEnvironmentVariable("bolbConnectionString"),
+                blobContainerName: "filescontainter",
+                blobName:file.FileName
+                
+               
+               
+                );
+
+
+            using (var memoryStream = new MemoryStream())
+            {
+                file.CopyToAsync(memoryStream);
+                memoryStream.Position = 0;               
+                await blob.UploadAsync(memoryStream);
+            }
+
+            var absoluteUrl = blob.Uri.AbsoluteUri;
+
+            if (!string.IsNullOrEmpty(absoluteUrl))
             {
                 // Add a JSON document to the output container.
                 await documentsOut.AddAsync(new
@@ -46,22 +67,13 @@ namespace AzureCosmos
                     // create a random ID
                     id = newId,
                     category = category,
-                    name = name,
+                    name = file.FileName,
                     description = description,
-                    file = file
+                    file = absoluteUrl
 
                 });
             }
 
-            //string Connection = Environment.GetEnvironmentVariable("bolbConnectionString");
-            //string containerName = Environment.GetEnvironmentVariable("filescontainter");
-            //Stream myBlob = new MemoryStream();
-           
-            //myBlob = file.OpenReadStream();
-            //var blobClient = new BlobContainerClient(Connection, containerName);
-            //var blob = blobClient.GetBlobClient(file.FileName);
-            //await blob.UploadAsync(myBlob);
-            
 
             ResponseMessage responseMessage = new ResponseMessage();
             responseMessage.message = $"This HTTP triggered function executed successfully. FileName: {file.FileName} - FileID: {newId}";
@@ -70,5 +82,10 @@ namespace AzureCosmos
 
             return new OkObjectResult(responseMessage);
         }
+
+        
     }
+
+
+    
 }
